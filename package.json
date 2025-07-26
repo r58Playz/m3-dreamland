@@ -1,0 +1,43 @@
+{
+	"name": "m3-dreamland",
+	"version": "0.1.0",
+	"description": "Material 3 UI for dreamland.js",
+	"license": "Apache-2.0",
+	"type": "module",
+	"files": [
+		"dist/*.d.ts",
+		"dist/*.js",
+		"dist/*.js.map"
+	],
+	"scripts": {
+		"build": "rollup -c",
+		"watch": "rollup -cw",
+		"format": "prettier -w .",
+		"prepack": "npm run build"
+	},
+	"exports": {
+		".": {
+			"default": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./styles": {
+			"default": "./dist/styles.css"
+		}
+	},
+	"devDependencies": {
+		"@iconify/types": "^2.0.0",
+		"@rollup/plugin-node-resolve": "^16.0.1",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@rollup/plugin-typescript": "^12.1.4",
+		"prettier": "^3.6.2",
+		"rollup": "^4.45.1",
+		"rollup-plugin-dts": "^6.2.1",
+		"tslib": "^2.8.1",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"@ktibow/iconset-material-symbols": "^0.0.1752989765",
+		"@ktibow/material-color-utilities-nightly": "^0.3.11753407547043",
+		"dreamland": "link:../dreamland"
+	}
+}

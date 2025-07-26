@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"lib": ["ES2022", "dom", "dom.iterable"],
+		"target": "ES2022",
+		"declaration": true,
+		"declarationDir": "dist/types",
+		"rootDir": "src",
+		"moduleResolution": "bundler",
+		"stripInternal": true,
+		"jsx": "react-jsx",
+		"jsxImportSource": "dreamland"
+	},
+	"include": ["src"],
+	"exclude": ["dist"]
+}
