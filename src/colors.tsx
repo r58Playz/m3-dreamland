@@ -15,7 +15,7 @@ let argbToString = (argb: number) => `${(argb >> 16) & 255} ${(argb >> 8) & 255}
 let shapes = [["none", 0], ["extra-small", 4], ["small", 8], ["medium", 12], ["large", 16], ["extra-large", 28], ["full", 1e6]] as const;
 
 let FAST = "fast", DEFAULT = "default", SLOW = "slow";
-let bezier = (a: number, b: number, c: number, d: number, duration: number) => `cubic-bezier(${a},${b},${c},${d}) ${duration}ms`;
+let bezier = (a: number, b: number, c: number, d: number, duration: number) => `cubic-bezier(${a},${b},${c},${d}) ${duration / 1000}s`;
 let expressiveSpatial = [
 	[FAST, bezier(0.42, 1.67, 0.21, 0.9, 350)],
 	[DEFAULT, bezier(0.38, 1.21, 0.22, 1, 500)],
@@ -72,6 +72,7 @@ export let SchemeStyles: Component<{ scheme: DynamicScheme, motion: "expressive"
 					0px 8px 10px -6px rgb(var(--m3dl-color-shadow) / 0.2),
 					0px 16px 24px 2px rgb(var(--m3dl-color-shadow) / 0.14),
 					0px 6px 30px 5px rgb(var(--m3dl-color-shadow) / 0.12);
+				--m3dl-font: Roboto, system-ui, sans-serif;
 			}
 		`;
 

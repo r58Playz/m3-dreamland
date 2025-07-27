@@ -3,13 +3,13 @@ import { HoverLayer, Ripples } from "../misc/Layer";
 
 export let Card: Component<{
 	variant: "elevated" | "filled" | "outlined",
-	"on:click"?: (e: MouseEvent) => void,
+	"on:click"?: (e: PointerEvent) => void,
 	children?: ComponentChild,
 }> = function(cx) {
 	if (this["on:click"]) {
-		let ripple = createDelegate<MouseEvent>();
+		let ripple = createDelegate<PointerEvent>();
 		return (
-			<button class={`m3dl-container m3dl-card ${this.variant}`} on:pointerdown={ripple} on:click={this["on:click"]}>
+			<button class={use`m3dl-container m3dl-card variant-${this.variant}`} on:pointerdown={ripple} on:click={this["on:click"]}>
 				<Ripples create={ripple} />
 				<HoverLayer />
 				{cx.children}
@@ -17,7 +17,7 @@ export let Card: Component<{
 		)
 	} else {
 		return (
-			<div class={`m3dl-container m3dl-card ${this.variant}`}>
+			<div class={use`m3dl-container m3dl-card variant-${this.variant}`}>
 				{cx.children}
 			</div>
 		)
@@ -42,16 +42,16 @@ Card.style = css`
 		cursor: pointer;
 	}
 
-	:scope.elevated {
+	:scope.variant-elevated {
 		background: rgb(var(--m3dl-color-surface-container-low));
 		box-shadow: var(--m3dl-elevation-1);
 	}
 
-	:scope.filled {
+	:scope.variant-filled {
 		background: rgb(var(--m3dl-color-surface-container-highest));
 	}
 
-	:scope.outlined {
+	:scope.variant-outlined {
 		background: rgb(var(--m3dl-color-surface));
 		border: 1px solid rgb(var(--m3dl-color-outline-variant));
 	}
