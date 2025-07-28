@@ -13,6 +13,8 @@ export let Button: Component<{
 	shape?: "round" | "square",
 	icon?: ButtonIcon,
 
+	disabled?: boolean,
+
 	"on:click"?: (e: PointerEvent) => void,
 	children?: ComponentChild,
 }> = function(cx) {
@@ -21,6 +23,7 @@ export let Button: Component<{
 	this.size ??= "s";
 	this.shape ??= "round";
 	this.icon ??= "left";
+	this.disabled ??= false;
 
 	let ripple = createDelegate<PointerEvent>();
 
@@ -28,6 +31,7 @@ export let Button: Component<{
 	return (
 		<button
 			class={use`m3dl-container m3dl-button m3dl-font-${font} variant-${this.variant} size-${this.size} shape-${this.shape} icon-${this.icon}`}
+			disabled={use(this.disabled)}
 			on:click={this["on:click"]}
 			on:pointerdown={ripple}
 		>
@@ -52,12 +56,14 @@ Button.style = css`
 		user-select: none;
 
 		height: var(--m3dl-shape-full);
-	}
-	button:scope {
+
 		letter-spacing: inherit;
 		word-spacing: inherit;
 		line-height: inherit;
 		text-align: inherit;
+	}
+	:scope:disabled {
+		cursor: default;
 	}
 
 	:scope.variant-elevated {
@@ -82,6 +88,11 @@ Button.style = css`
 		background: transparent;
 		color: rgb(var(--m3dl-color-primary));
 	}
+	:scope:disabled {
+		background: rgb(var(--m3dl-color-on-surface) / 0.1);
+		color: rgb(var(--m3dl-color-on-surface) / 0.38);
+		box-shadow: var(--m3dl-elevation-0);
+	}
 
 	:scope.shape-round {
 		border-radius: var(--m3dl-shape-full);
@@ -97,13 +108,13 @@ Button.style = css`
 		border-radius: var(--m3dl-shape-extra-large);
 	}
 
-	:scope:active:is(.size-xs, .size-s) {
+	:scope:not(:disabled):active:is(.size-xs, .size-s) {
 		border-radius: var(--m3dl-shape-small);
 	}
-	:scope:active:is(.size-m) {
+	:scope:not(:disabled):active:is(.size-m) {
 		border-radius: var(--m3dl-shape-medium);
 	}
-	:scope:active:is(.size-l, .size-xl) {
+	:scope:not(:disabled):active:is(.size-l, .size-xl) {
 		border-radius: var(--m3dl-shape-large);
 	}
 

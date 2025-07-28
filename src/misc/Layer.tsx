@@ -99,6 +99,8 @@ Ripples.style = css`
 
 		overflow: hidden;
 	}
+
+	:global(*):disabled > :scope { opacity: 0; }
 `;
 
 export let HoverLayer: Component = function() {
@@ -118,7 +120,7 @@ HoverLayer.style = css`
 		transition: opacity var(--m3dl-motion-effects-default);
 	}
 
-	:global(*):hover > :scope {
+	:global(*):hover:not(:global(:disabled)) > :scope {
 		opacity: 0.08;
 	}
 `;
