@@ -108,13 +108,13 @@ Button.style = css`
 		border-radius: var(--m3dl-shape-extra-large);
 	}
 
-	:scope:not(:disabled):active:is(.size-xs, .size-s) {
+	:scope:enabled:active:is(.size-xs, .size-s) {
 		border-radius: var(--m3dl-shape-small);
 	}
-	:scope:not(:disabled):active:is(.size-m) {
+	:scope:enabled:active:is(.size-m) {
 		border-radius: var(--m3dl-shape-medium);
 	}
-	:scope:not(:disabled):active:is(.size-l, .size-xl) {
+	:scope:enabled:active:is(.size-l, .size-xl) {
 		border-radius: var(--m3dl-shape-large);
 	}
 
