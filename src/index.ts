@@ -3,6 +3,7 @@ export { DynamicScheme, Variant, Hct, argbFromHex, hexFromArgb } from "@ktibow/m
 
 export { Button, ButtonSize, ButtonVariant } from "./inputs/Button";
 export { Switch } from "./inputs/Switch";
+export { Chip, ChipVariant } from "./inputs/Chip";
 
 export { Card } from "./containers/Card";
 
