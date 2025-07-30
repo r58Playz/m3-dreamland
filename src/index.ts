@@ -8,3 +8,4 @@ export { Chip, ChipVariant } from "./inputs/Chip";
 export { Card } from "./containers/Card";
 
 export { Icon } from "./misc/Icon";
+export { LinearProgress } from "./misc/LinearProgress";

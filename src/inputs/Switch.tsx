@@ -46,6 +46,7 @@ Switch.style = css`
 	}
 	input:checked {
 		background: rgb(var(--m3dl-color-primary));
+		border-color: rgb(var(--m3dl-color-primary));
 	}
 	input:disabled {
 		background: rgb(var(--m3dl-color-surface-container-highest));
