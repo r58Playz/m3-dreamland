@@ -50,7 +50,10 @@ Button.style = css`
 		align-items: center;
 		justify-content: center;
 
-		transition: border-radius var(--m3dl-motion-spatial-fast);
+		transition: border-radius var(--m3dl-motion-spatial-fast),
+			color var(--m3dl-motion-effects-default),
+			background var(--m3dl-motion-effects-default),
+			border-color var(--m3dl-motion-effects-default);
 
 		cursor: pointer;
 		user-select: none;
@@ -71,24 +74,41 @@ Button.style = css`
 		color: rgb(var(--m3dl-color-primary));
 		box-shadow: var(--m3dl-elevation-1);
 	}
-	:scope.variant-filled {
+	:scope:has(:global(.m3dl-toggle.selected)).variant-elevated {
 		background: rgb(var(--m3dl-color-primary));
 		color: rgb(var(--m3dl-color-on-primary));
+	}
+	:scope:not(:has(:global(.m3dl-toggle:not(.selected)))).variant-filled {
+		background: rgb(var(--m3dl-color-primary));
+		color: rgb(var(--m3dl-color-on-primary));
+	}
+	:scope:has(:global(.m3dl-toggle)).variant-filled {
+		background: rgb(var(--m3dl-color-surface-container));
+		color: rgb(var(--m3dl-color-on-surface-variant));
 	}
 	:scope.variant-tonal {
 		background: rgb(var(--m3dl-color-secondary-container));
 		color: rgb(var(--m3dl-color-on-secondary-container));
+	}
+	:scope:has(:global(.m3dl-toggle.selected)).variant-tonal {
+		background: rgb(var(--m3dl-color-secondary));
+		color: rgb(var(--m3dl-color-on-secondary));
 	}
 	:scope.variant-outlined {
 		border: var(--m3dl-button-border, 1px) solid rgb(var(--m3dl-color-outline-variant));
 		background: transparent;
 		color: rgb(var(--m3dl-color-on-surface-variant));
 	}
+	:scope:has(:global(.m3dl-toggle.selected)).variant-outlined {
+		border-color: transparent;
+		background: rgb(var(--m3dl-color-inverse-surface));
+		color: rgb(var(--m3dl-color-inverse-on-surface));
+	}
 	:scope.variant-text {
 		background: transparent;
 		color: rgb(var(--m3dl-color-primary));
 	}
-	:scope:disabled {
+	:scope:disabled:disabled {
 		background: rgb(var(--m3dl-color-on-surface) / 0.1);
 		color: rgb(var(--m3dl-color-on-surface) / 0.38);
 		box-shadow: var(--m3dl-elevation-0);
@@ -144,5 +164,9 @@ Button.style = css`
 		--m3dl-shape-full: 8.5rem;
 		padding: 4rem;
 		gap: 1rem;
+	}
+
+	:scope > :global(span.m3dl-toggle) {
+		display: none;
 	}
 `;
