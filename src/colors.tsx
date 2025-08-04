@@ -86,7 +86,7 @@ export let SchemeStyles: Component<{ scheme: DynamicScheme, motion: "expressive"
 
 	return (
 		<div class={`${uid} m3dl-scheme-styles`}>
-			<style this={use(this.style).bind()} />
+			<style this={use(this.style)} />
 			{cx.children}
 		</div>
 	)

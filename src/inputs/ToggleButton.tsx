@@ -18,11 +18,11 @@ export let ToggleButton: Component<{
 	return (
 		<Button
 			variant={use(this.variant)}
-			size={use(this.size).bind()}
+			size={use(this.size)}
 			shape={use(this.value).andThen("square", "round")}
-			icon={use(this.icon).bind()}
+			icon={use(this.icon)}
 
-			disabled={use(this.disabled).bind()}
+			disabled={use(this.disabled)}
 
 			on:click={() => this.value = !this.value}
 		>

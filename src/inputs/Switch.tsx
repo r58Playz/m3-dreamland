@@ -14,7 +14,7 @@ export let Switch: Component<{
 
 	return (
 		<span class="m3dl-container m3dl-switch">
-			<input type="checkbox" role="switch" disabled={use(this.disabled)} checked={use(this.value).bind()} />
+			<input type="checkbox" role="switch" disabled={use(this.disabled)} checked={use(this.value)} />
 			<div class="layer">
 				<div class="handle">
 					<Icon icon={use(this.icon)} />

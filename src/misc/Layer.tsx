@@ -115,7 +115,7 @@ HoverLayer.style = css`
 
 		overflow: hidden;
 
-		background: currentColor;
+		background: var(--m3dl-state-color, currentColor);
 		opacity: 0;
 		transition: opacity var(--m3dl-motion-effects-default);
 	}
