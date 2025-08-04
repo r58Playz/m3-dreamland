@@ -11,3 +11,4 @@ export { Card } from "./containers/Card";
 
 export { Icon } from "./misc/Icon";
 export { LinearProgress } from "./misc/LinearProgress";
+export { LoadingIndicator } from "./misc/LoadingIndicator";
