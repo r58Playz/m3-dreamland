@@ -7,6 +7,7 @@ import { HoverLayer } from "../misc/Layer";
 // TODO trailing
 export let TextFieldFilled: Component<{
 	value: string,
+	type?: "text" | "password",
 	placeholder?: string,
 	supporting?: string,
 
@@ -16,6 +17,7 @@ export let TextFieldFilled: Component<{
 }> = function() {
 	let id = randomUid();
 
+	this.type ??= "text";
 	this.placeholder ??= "";
 	this.errored ??= false;
 
@@ -28,6 +30,7 @@ export let TextFieldFilled: Component<{
 					value={use(this.value)}
 					placeholder=" "
 					id={id}
+					type={use(this.type)}
 				/>
 				<label class="placeholder" for={id}>{use(this.placeholder)}</label>
 				<div class="focus" />
