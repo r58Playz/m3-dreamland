@@ -56,7 +56,7 @@ Chip.style = css`
 		border: 1px solid rgb(var(--m3dl-color-outline));
 
 		cursor: pointer;
-		transition: var(--m3-motion-effects-fast);
+		transition: var(--m3dl-motion-effects-default);
 	}
 
 	:scope > svg {
