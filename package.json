@@ -38,6 +38,6 @@
 	"dependencies": {
 		"@ktibow/iconset-material-symbols": "^0.0.1752989765",
 		"@ktibow/material-color-utilities-nightly": "^0.3.11753407547043",
-		"dreamland": "link:../dreamland"
+		"dreamland": "github:mercuryworkshop/dreamlandjs#vdom"
 	}
 }
