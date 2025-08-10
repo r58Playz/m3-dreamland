@@ -48,17 +48,6 @@ export default defineConfig([
 				safari10: false,
 				ecma: 2022,
 			}),
-			{
-				name: "copyStyles",
-				writeBundle: () =>
-					new Promise((r) =>
-						fs.copyFile(
-							"src/styles.css",
-							"dist/styles.css",
-							r
-						)
-					),
-			},
 		],
 		external: ["dreamland/core", "dreamland/motion"]
 	},
