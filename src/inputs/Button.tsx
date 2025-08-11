@@ -12,6 +12,7 @@ export let Button: Component<{
 	size?: ButtonSize,
 	shape?: "round" | "square",
 	icon?: ButtonIcon,
+	title?: string,
 
 	disabled?: boolean,
 
@@ -34,6 +35,7 @@ export let Button: Component<{
 			disabled={use(this.disabled)}
 			on:click={this["on:click"]}
 			on:pointerdown={ripple}
+			title={use(this.title)}
 		>
 			<Ripples create={ripple} />
 			<HoverLayer />

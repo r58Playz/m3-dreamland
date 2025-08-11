@@ -8,6 +8,7 @@ export let ToggleButton: Component<{
 	variant: ToggleButtonVariant,
 	size?: ButtonSize,
 	icon?: ButtonIcon,
+	title?: string,
 
 	disabled?: boolean,
 
@@ -21,6 +22,7 @@ export let ToggleButton: Component<{
 			size={use(this.size)}
 			shape={use(this.value).andThen("square", "round")}
 			icon={use(this.icon)}
+			title={use(this.title)}
 
 			disabled={use(this.disabled)}
 
