@@ -1,4 +1,4 @@
-import { Component, css } from "dreamland/core";
+import { Component, css, jsx } from "dreamland/core";
 import { randomUid } from "../util";
 import { IconifyIcon } from "@iconify/types";
 import { Icon } from "../misc/Icon";
@@ -14,24 +14,42 @@ export let TextFieldFilled: Component<{
 	leading?: IconifyIcon,
 
 	errored?: boolean,
-}> = function() {
+	multiline?: boolean,
+}, {
+	field: HTMLDivElement,
+	input: HTMLTextAreaElement | HTMLInputElement,
+}> = function(cx) {
 	let id = randomUid();
 
 	this.type ??= "text";
 	this.placeholder ??= "";
 	this.errored ??= false;
+	this.multiline ??= false;
+
+	cx.mount = () => {
+		if (this.multiline) {
+			let textarea = this.input as HTMLTextAreaElement;
+			let node = this.field;
+			const update = () => {
+				node.style.flexBasis = "unset";
+				node.style.flexBasis = textarea.scrollHeight + "px";
+			};
+			node.addEventListener("input", update);
+		}
+	}
 
 	return (
 		<div class="m3dl-container m3dl-textfield" class:errored={use(this.errored)}>
-			<div class="field m3dl-font-body-large">
+			<div class="field m3dl-font-body-large" this={use(this.field)}>
 				{use(this.leading).map(x => x && <Icon class="leading" icon={x} />)}
-				<input
-					class="focus-none"
-					value={use(this.value)}
-					placeholder=" "
-					id={id}
-					type={use(this.type)}
-				/>
+				{jsx(this.multiline ? "textarea" : "input", {
+					class: "focus-none",
+					value: use(this.value),
+					placeholder: " ",
+					id,
+					type: use(this.type),
+					this: use(this.input),
+				})}
 				<label class="placeholder" for={id}>{use(this.placeholder)}</label>
 				<div class="focus" />
 				<HoverLayer />
@@ -61,7 +79,7 @@ TextFieldFilled.style = css`
 
 		--m3dl-state-color: rgb(var(--m3dl-color-on-surface));
 	}
-	.field input {
+	.field :is(input, textarea) {
 		position: absolute;
 		inset: 0;
 
@@ -77,6 +95,8 @@ TextFieldFilled.style = css`
 		word-spacing: inherit;
 		line-height: inherit;
 		text-align: inherit;
+
+		resize: none;
 	}
 	.field label {
 		position: absolute;
@@ -91,7 +111,7 @@ TextFieldFilled.style = css`
 
 		transition: var(--m3dl-motion-effects-default);
 	}
-	.field input:not(:focus):placeholder-shown ~ label {
+	.field :is(input, textarea):not(:focus):placeholder-shown ~ label {
 		top: 1rem;
 		color: rgb(var(--m3dl-color-on-surface-variant));
 
@@ -109,7 +129,7 @@ TextFieldFilled.style = css`
 		background: rgb(var(--m3dl-color-on-surface-variant));
 		transition: var(--m3dl-motion-effects-default);
 	}
-	.field input:focus ~ .focus {
+	.field :is(input, textarea):focus ~ .focus {
 		background: rgb(var(--m3dl-color-primary));
 		height: 2px;
 	}
@@ -123,7 +143,7 @@ TextFieldFilled.style = css`
 		position: absolute;
 		left: 0.5rem;
 	}
-	.field > :global(.leading) ~ input {
+	.field > :global(.leading) ~ :is(input, textarea) {
 		padding-left: 3rem;
 	}
 	.field > :global(.leading) ~ label {
@@ -145,7 +165,7 @@ TextFieldFilled.style = css`
 	:scope.errored :is(.field :is(label, .trailing), .supporting) {
 		color: rgb(var(--m3dl-color-error));
 	}
-	:scope.errored .field input {
+	:scope.errored .field :is(input, textarea) {
 		caret-color: rgb(var(--m3dl-color-error));
 	}
 
