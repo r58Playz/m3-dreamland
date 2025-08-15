@@ -15,6 +15,7 @@ export let LoadingIndicator: Component<{
 			height={use(this.size)}
 			class:container={use(this.container)}
 			class:center={use(this.center)}
+			viewBox="0 0 48 48"
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<path fill="currentColor">
