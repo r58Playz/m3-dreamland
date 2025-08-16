@@ -110,7 +110,7 @@ Button.style = css`
 		background: transparent;
 		color: rgb(var(--m3dl-color-primary));
 	}
-	:scope:disabled:disabled {
+	:scope:disabled:disabled:disabled:disabled {
 		background: rgb(var(--m3dl-color-on-surface) / 0.1);
 		color: rgb(var(--m3dl-color-on-surface) / 0.38);
 		box-shadow: var(--m3dl-elevation-0);
