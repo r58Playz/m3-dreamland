@@ -15,8 +15,8 @@ importers:
         specifier: ^0.3.11753407547043
         version: 0.3.11753407547043
       dreamland:
-        specifier: github:mercuryworkshop/dreamlandjs#vdom
-        version: https://codeload.github.com/mercuryworkshop/dreamlandjs/tar.gz/108872e3632bcc9be294ea729ae3944bdb15aacc
+        specifier: link:../dreamland
+        version: link:../dreamland
     devDependencies:
       '@iconify/types':
         specifier: ^2.0.0
@@ -242,17 +242,6 @@ packages:
     resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
     engines: {node: '>=0.10.0'}
 
-  domelementtype@2.3.0:
-    resolution: {integrity: sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==}
-
-  domhandler@5.0.3:
-    resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
-    engines: {node: '>= 4'}
-
-  dreamland@https://codeload.github.com/mercuryworkshop/dreamlandjs/tar.gz/108872e3632bcc9be294ea729ae3944bdb15aacc:
-    resolution: {tarball: https://codeload.github.com/mercuryworkshop/dreamlandjs/tar.gz/108872e3632bcc9be294ea729ae3944bdb15aacc}
-    version: 0.1.0
-
   estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
@@ -267,9 +256,6 @@ packages:
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
-
-  htm@3.1.1:
-    resolution: {integrity: sha512-983Vyg8NwUE7JkZ6NmOqpCZ+sh1bKv2iYTlUkzlWmA5JD2acKoxd4KVxbMmxX/85mtfdnDmTFoNKcg5DGAvxNQ==}
 
   is-core-module@2.16.1:
     resolution: {integrity: sha512-UfoeMA6fIJ8wTYFEUjelnaGI67v6+N7qXJEvQuIGa99l4xsCruSYOVSQ0uPANn4dAzm8lkYPaKLrrijLq7x23w==}
@@ -318,9 +304,6 @@ packages:
     resolution: {integrity: sha512-4iya7Jb76fVpQyLoiVpzUrsjQ12r3dM7fIVz+4NwoYvZOShknRmiv+iu9CClZml5ZLGb0XMcYLutK6w9tgxHDw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
-
-  rrweb-cssom@0.8.0:
-    resolution: {integrity: sha512-guoltQEx+9aMf2gDZ0s62EcV8lsXR+0w8915TC3ITdn2YueuNjdAYh/levpU9nFaoChh9RUS5ZdQMrKfVEN9tw==}
 
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
@@ -501,18 +484,6 @@ snapshots:
 
   deepmerge@4.3.1: {}
 
-  domelementtype@2.3.0: {}
-
-  domhandler@5.0.3:
-    dependencies:
-      domelementtype: 2.3.0
-
-  dreamland@https://codeload.github.com/mercuryworkshop/dreamlandjs/tar.gz/108872e3632bcc9be294ea729ae3944bdb15aacc:
-    dependencies:
-      domhandler: 5.0.3
-      htm: 3.1.1
-      rrweb-cssom: 0.8.0
-
   estree-walker@2.0.2: {}
 
   fsevents@2.3.3:
@@ -523,8 +494,6 @@ snapshots:
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
-
-  htm@3.1.1: {}
 
   is-core-module@2.16.1:
     dependencies:
@@ -591,8 +560,6 @@ snapshots:
       '@rollup/rollup-win32-ia32-msvc': 4.45.1
       '@rollup/rollup-win32-x64-msvc': 4.45.1
       fsevents: 2.3.3
-
-  rrweb-cssom@0.8.0: {}
 
   safe-buffer@5.2.1: {}
 
