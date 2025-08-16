@@ -7,12 +7,13 @@ export let LoadingIndicator: Component<{
 }> = function() {
 	this.size ??= 48;
 	this.container ??= false;
-	this.center ??= true;
+	this.center ??= false;
 
 	return (
 		<svg 
 			width={use(this.size)}
 			height={use(this.size)}
+			class="m3dl-loadingindicator"
 			class:container={use(this.container)}
 			class:center={use(this.center)}
 			viewBox="0 0 48 48"

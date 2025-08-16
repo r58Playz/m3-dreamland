@@ -62,9 +62,7 @@ Button.style = css`
 
 		height: var(--m3dl-shape-full);
 
-		letter-spacing: inherit;
 		word-spacing: inherit;
-		line-height: inherit;
 		text-align: inherit;
 	}
 	:scope:disabled {
@@ -166,6 +164,40 @@ Button.style = css`
 		--m3dl-shape-full: 8.5rem;
 		padding: 4rem;
 		gap: 1rem;
+	}
+	
+	:scope:not(.icon-left).size-xs {
+		--m3dl-icon-size: 1.25rem;
+	}
+	:scope:not(.icon-left):is(.size-s, .size-m) {
+		--m3dl-icon-size: 1.5rem;
+	}
+	:scope:not(.icon-left).size-l {
+		--m3dl-icon-size: 2rem;
+	}
+	:scope:not(.icon-left).size-xl {
+		--m3dl-icon-size: 2.5rem;
+	}
+
+	:scope.icon-full.size-xs {
+		padding: 0.375rem;
+	}
+	:scope.icon-full.size-s {
+		padding: 0.5rem;
+	}
+	:scope.icon-full.size-m {
+		padding: 1rem;
+	}
+	:scope.icon-full.size-l {
+		padding: 2rem;
+	}
+	:scope.icon-full.size-xl {
+		padding: 3rem;
+	}
+
+	:scope > :global(svg) {
+		width: var(--m3dl-icon-size, 1em);
+		height: var(--m3dl-icon-size, 1em);
 	}
 
 	:scope > :global(span.m3dl-toggle) {

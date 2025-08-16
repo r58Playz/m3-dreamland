@@ -35,6 +35,7 @@ export let TextFieldFilled: Component<{
 				node.style.flexBasis = textarea.scrollHeight + "px";
 			};
 			node.addEventListener("input", update);
+			use(this.value).listen(() => update());
 		}
 	}
 
