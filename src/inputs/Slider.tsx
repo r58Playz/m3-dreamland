@@ -16,8 +16,7 @@ export let Slider: Component<{
 	disabled?: boolean,
 }, {
 	stops: number,
-	width: number,
-}> = function(cx) {
+}> = function() {
 	this.min ??= 0;
 	this.max ??= 100;
 	this.step ??= "any";
@@ -27,24 +26,14 @@ export let Slider: Component<{
 	this.endStop ??= false;
 	this.disabled ??= false;
 
-	this.width = 600;
-	cx.mount = () => {
-		let resize = new ResizeObserver(e => {
-			for (let entry of e) {
-				this.width = (entry.target as HTMLElement).offsetWidth
-			}
-		});
-		resize.observe(cx.root);
-	}
-
 	let spring = createSpring(this.value, { stiffness: 0.3, damping: 1 });
+	use(this.value).listen(x => spring.target = x);
 	let display = use(this.min, this.max, spring.current).map(([min, max, current]) => (current - min) / (max - min));
 
 	let update = (e: InputEvent & { currentTarget: HTMLInputElement }) => {
 		let value = +e.currentTarget.value;
 		e.preventDefault();
 		this.value = value;
-		spring.target = value;
 	}
 
 	let stopList = use(this.min, this.max, this.step, this.ticks, this.endStop).map(([min, max, step, ticks, endStop]) => {
@@ -65,7 +54,13 @@ export let Slider: Component<{
 	)
 
 	return (
-		<div class={use`m3dl-container m3dl-slider size-${this.size}`} style={{ "--percent": display }} >
+		<div
+			class={use`m3dl-container m3dl-slider size-${this.size}`}
+			style={{
+				"--percent": display,
+				"--inverse-percent": display.map(x => 1 - x),
+			}}
+		>
 			<input
 				type="range"
 				on:input={update}
@@ -189,7 +184,7 @@ Slider.style = css`
 		padding: 0 0.25rem;
 	}
 	.left > .stops { left: 0; width: calc((100% + 0.5rem) / var(--percent)) }
-	.right > .stops { right: 0; width: calc((100% + 0.5rem) / (1 - var(--percent))) }
+	.right > .stops { right: 0; width: calc((100% + 0.5rem) / var(--inverse-percent)) }
 	.stop {
 		width: 0.25rem;
 		height: 0.25rem;
