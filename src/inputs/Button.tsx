@@ -53,6 +53,7 @@ Button.style = css`
 		justify-content: center;
 
 		transition: border-radius var(--m3dl-motion-spatial-fast),
+			flex var(--m3dl-motion-spatial-fast),
 			color var(--m3dl-motion-effects-default),
 			background var(--m3dl-motion-effects-default),
 			border-color var(--m3dl-motion-effects-default);
