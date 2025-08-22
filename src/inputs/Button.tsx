@@ -1,15 +1,15 @@
 import { Component, ComponentChild, createDelegate, css } from "dreamland/core";
 import { HoverLayer, Ripples } from "../misc/Layer";
+import { ComponentSize } from "../util";
 
 export type ButtonVariant = "elevated" | "filled" | "tonal" | "outlined" | "text";
-export type ButtonSize = "xs" | "s" | "m" | "l" | "xl";
 export type ButtonIcon = "full" | "wide" | "narrow" | "left";
 
 let sizeFontMap = { xs: "label-large", s: "label-large", m: "title-medium", l: "headline-small", xl: "headline-large" };
 
 export let Button: Component<{
 	variant: ButtonVariant,
-	size?: ButtonSize,
+	size?: ComponentSize,
 	shape?: "round" | "square",
 	icon?: ButtonIcon,
 	title?: string,

@@ -1,12 +1,13 @@
 import { Component, ComponentChild } from "dreamland/core";
-import { Button, ButtonIcon, ButtonSize } from "./Button";
+import { Button, ButtonIcon } from "./Button";
+import { ComponentSize } from "../util";
 
 export type ToggleButtonVariant = "elevated" | "filled" | "tonal" | "outlined";
 
 export let ToggleButton: Component<{
 	value: boolean,
 	variant: ToggleButtonVariant,
-	size?: ButtonSize,
+	size?: ComponentSize,
 	icon?: ButtonIcon,
 	title?: string,
 
