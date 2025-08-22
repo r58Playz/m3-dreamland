@@ -196,10 +196,10 @@ Slider.style = css`
 		background: rgb(var(--m3dl-color-on-primary));
 	}
 	input:disabled ~ .track .stop {
-		background: rgb(var(--m3dl-color-on-surface));
+		background: rgb(var(--m3dl-color-on-surface) / 0.38);
 	}
 	input:disabled ~ .track.left .stop {
-		background: rgb(var(--m3dl-color-inverse-on-surface));
+		background: rgb(var(--m3dl-color-inverse-on-surface) / 0.66);
 	}
 
 	.stop.end {
