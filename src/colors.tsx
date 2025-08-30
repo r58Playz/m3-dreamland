@@ -38,7 +38,11 @@ let standardEffects = [
 	[SLOW, bezier(0.34, 0.88, 0.34, 1, 300)]
 ] as const;
 
-export let SchemeStyles: Component<{ scheme: DynamicScheme, motion: "expressive" | "standard", children?: ComponentChild }, { style: HTMLStyleElement }> = function(cx) {
+export let SchemeStyles: Component<{
+	scheme: DynamicScheme,
+	motion: "expressive" | "standard",
+	children?: ComponentChild
+}, { style: string }> = function(cx) {
 	let uid = "m3dl-" + randomUid();
 
 	let setStyles = () => {
@@ -76,9 +80,10 @@ export let SchemeStyles: Component<{ scheme: DynamicScheme, motion: "expressive"
 			}
 		`;
 
-		this.style.innerText = styles;
+		this.style = styles;
 	};
 
+	setStyles();
 	cx.mount = () => {
 		setStyles();
 		use(this.scheme).listen(setStyles);
@@ -86,7 +91,7 @@ export let SchemeStyles: Component<{ scheme: DynamicScheme, motion: "expressive"
 
 	return (
 		<div class={`${uid} m3dl-scheme-styles m3dl-font-body-medium`}>
-			<style this={use(this.style)} />
+			<style attr:innerText={use(this.style)} />
 			{cx.children}
 		</div>
 	)

@@ -1,6 +1,7 @@
 import { Component, ComponentChild, css } from "dreamland/core";
 import { ComponentSize } from "../util";
 
+// TODO variant connected
 export let ButtonGroup: Component<{
 	variant: "standard" | "connected"
 

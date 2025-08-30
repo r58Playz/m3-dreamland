@@ -6,13 +6,7 @@ export const Icon: Component<{
 	width?: string | undefined,
 	height?: string | undefined,
 	class?: string | undefined
-}, {}> = function(cx) {
-	cx.mount = () => {
-		cx.root.innerHTML = this.icon.body;
-		use(this.icon).listen(() => {
-			cx.root.innerHTML = this.icon.body;
-		});
-	};
+}, {}> = function() {
 	return (
 		<svg
 			width={use(this.width).map(x => x || "1em")}
@@ -20,6 +14,8 @@ export const Icon: Component<{
 			viewBox={use`0 0 ${this.icon.width} ${this.icon.height}`}
 			xmlns="http://www.w3.org/2000/svg"
 			{...(this.class ? { class: this.class } : {})}
-		></svg>
+
+			attr:innerHTML={use(this.icon).map(x => x.body)}
+		/>
 	);
 }
