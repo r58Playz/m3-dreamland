@@ -27,6 +27,7 @@
 	},
 	"devDependencies": {
 		"@iconify/types": "^2.0.0",
+		"@literals/rollup-plugin-html-css-minifier": "^3.0.1",
 		"@rollup/plugin-node-resolve": "^16.0.1",
 		"@rollup/plugin-terser": "^0.4.4",
 		"@rollup/plugin-typescript": "^12.1.4",
@@ -41,6 +42,5 @@
 		"@ktibow/iconset-material-symbols": "^0.0.1752989765",
 		"@ktibow/material-color-utilities-nightly": "^0.3.11753407547043",
 		"dreamland": "link:../dreamland"
-	},
-	"sideEffects": false
+	}
 }

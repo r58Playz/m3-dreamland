@@ -4,6 +4,7 @@ import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 import { dts } from "rollup-plugin-dts";
 import treeShakeable from "rollup-plugin-tree-shakeable";
+import { literalsHtmlCssMinifier } from '@literals/rollup-plugin-html-css-minifier';
 
 export default defineConfig([
 	{
@@ -16,6 +17,7 @@ export default defineConfig([
 				filterRoot: process.cwd(),
 				tsconfig: import.meta.dirname + "/tsconfig.json",
 			}),
+			literalsHtmlCssMinifier(),
 			terser({
 				parse: {},
 				compress: {
