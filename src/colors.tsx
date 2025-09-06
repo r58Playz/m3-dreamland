@@ -38,56 +38,54 @@ let standardEffects = [
 	[SLOW, bezier(0.34, 0.88, 0.34, 1, 300)]
 ] as const;
 
+export let genStyle = (uid: string, scheme: DynamicScheme, motion: "expressive" | "standard"): string => {
+	let spatial = motion === "expressive" ? expressiveSpatial : standardSpatial;
+	let effects = motion === "expressive" ? expressiveEffects : standardEffects;
+
+	return `
+		.${uid} {
+			${createRules("color", colors.map(x => [x.name, argbToString(x.getArgb(scheme))]))}
+			${createRules("shape", shapes.map(([a, b]) => [a, b + "px"]))}
+			${createRules("motion-spatial", spatial)}
+			${createRules("motion-effects", effects)}
+			--m3dl-elevation-0: none;
+			--m3dl-elevation-1:
+				0px 3px 1px -2px rgb(var(--m3dl-color-shadow) / 0.2),
+				0px 2px 2px 0px rgb(var(--m3dl-color-shadow) / 0.14),
+				0px 1px 5px 0px rgb(var(--m3dl-color-shadow) / 0.12);
+			--m3dl-elevation-2:
+				0px 2px 4px -1px rgb(var(--m3dl-color-shadow) / 0.2),
+				0px 4px 5px 0px rgb(var(--m3dl-color-shadow) / 0.14),
+				0px 1px 10px 0px rgb(var(--m3dl-color-shadow) / 0.12);
+			--m3dl-elevation-3:
+				0px 5px 5px -3px rgb(var(--m3dl-color-shadow) / 0.2),
+				0px 8px 10px 1px rgb(var(--m3dl-color-shadow) / 0.14),
+				0px 3px 14px 2px rgb(var(--m3dl-color-shadow) / 0.12);
+			--m3dl-elevation-4:
+				0px 5px 5px -3px rgb(var(--m3dl-color-shadow) / 0.2),
+				0px 8px 10px 1px rgb(var(--m3dl-color-shadow) / 0.14),
+				0px 3px 14px 2px rgb(var(--m3dl-color-shadow) / 0.12);
+			--m3dl-elevation-5:
+				0px 8px 10px -6px rgb(var(--m3dl-color-shadow) / 0.2),
+				0px 16px 24px 2px rgb(var(--m3dl-color-shadow) / 0.14),
+				0px 6px 30px 5px rgb(var(--m3dl-color-shadow) / 0.12);
+			--m3dl-font: Roboto, system-ui, sans-serif;
+		}
+	`;
+};
+
 export let SchemeStyles: Component<{
 	scheme: DynamicScheme,
 	motion: "expressive" | "standard",
 	children?: ComponentChild
 }, { style: string }> = function(cx) {
 	let uid = "m3dl-" + randomUid();
-
 	let setStyles = () => {
-		let spatial = this.motion === "expressive" ? expressiveSpatial : standardSpatial;
-		let effects = this.motion === "expressive" ? expressiveEffects : standardEffects;
-
-		let styles = `
-			.${uid} {
-				${createRules("color", colors.map(x => [x.name, argbToString(x.getArgb(this.scheme))]))}
-				${createRules("shape", shapes.map(([a, b]) => [a, b + "px"]))}
-				${createRules("motion-spatial", spatial)}
-				${createRules("motion-effects", effects)}
-				--m3dl-elevation-0: none;
-				--m3dl-elevation-1:
-					0px 3px 1px -2px rgb(var(--m3dl-color-shadow) / 0.2),
-					0px 2px 2px 0px rgb(var(--m3dl-color-shadow) / 0.14),
-					0px 1px 5px 0px rgb(var(--m3dl-color-shadow) / 0.12);
-				--m3dl-elevation-2:
-					0px 2px 4px -1px rgb(var(--m3dl-color-shadow) / 0.2),
-					0px 4px 5px 0px rgb(var(--m3dl-color-shadow) / 0.14),
-					0px 1px 10px 0px rgb(var(--m3dl-color-shadow) / 0.12);
-				--m3dl-elevation-3:
-					0px 5px 5px -3px rgb(var(--m3dl-color-shadow) / 0.2),
-					0px 8px 10px 1px rgb(var(--m3dl-color-shadow) / 0.14),
-					0px 3px 14px 2px rgb(var(--m3dl-color-shadow) / 0.12);
-				--m3dl-elevation-4:
-					0px 5px 5px -3px rgb(var(--m3dl-color-shadow) / 0.2),
-					0px 8px 10px 1px rgb(var(--m3dl-color-shadow) / 0.14),
-					0px 3px 14px 2px rgb(var(--m3dl-color-shadow) / 0.12);
-				--m3dl-elevation-5:
-					0px 8px 10px -6px rgb(var(--m3dl-color-shadow) / 0.2),
-					0px 16px 24px 2px rgb(var(--m3dl-color-shadow) / 0.14),
-					0px 6px 30px 5px rgb(var(--m3dl-color-shadow) / 0.12);
-				--m3dl-font: Roboto, system-ui, sans-serif;
-			}
-		`;
-
-		this.style = styles;
+		this.style = genStyle(uid, this.scheme, this.motion);
 	};
 
 	setStyles();
-	cx.mount = () => {
-		setStyles();
-		use(this.scheme).listen(setStyles);
-	};
+	use(this.scheme).listen(setStyles);
 
 	return (
 		<div class={`${uid} m3dl-scheme-styles m3dl-font-body-medium`}>

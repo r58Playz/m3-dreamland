@@ -33,6 +33,7 @@
 		"prettier": "^3.6.2",
 		"rollup": "^4.45.1",
 		"rollup-plugin-dts": "^6.2.1",
+		"rollup-plugin-tree-shakeable": "^2.0.0",
 		"tslib": "^2.8.1",
 		"typescript": "^5.8.3"
 	},
@@ -40,5 +41,6 @@
 		"@ktibow/iconset-material-symbols": "^0.0.1752989765",
 		"@ktibow/material-color-utilities-nightly": "^0.3.11753407547043",
 		"dreamland": "link:../dreamland"
-	}
+	},
+	"sideEffects": false
 }

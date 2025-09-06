@@ -1,4 +1,4 @@
-export { SchemeStyles } from "./colors";
+export { SchemeStyles, genStyle } from "./colors";
 export { DynamicScheme, Variant, Hct, argbFromHex, hexFromArgb, sourceColorFromImage, sourceColorFromImageBytes } from "@ktibow/material-color-utilities-nightly";
 
 export { Button, ButtonVariant } from "./inputs/Button";

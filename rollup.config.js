@@ -3,8 +3,7 @@ import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 import { dts } from "rollup-plugin-dts";
-
-import fs from "node:fs";
+import treeShakeable from "rollup-plugin-tree-shakeable";
 
 export default defineConfig([
 	{
@@ -48,6 +47,7 @@ export default defineConfig([
 				safari10: false,
 				ecma: 2022,
 			}),
+			treeShakeable(),
 		],
 		external: ["dreamland/core", "dreamland/motion"]
 	},
