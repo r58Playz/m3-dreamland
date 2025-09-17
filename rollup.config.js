@@ -17,7 +17,7 @@ export default defineConfig([
 				filterRoot: process.cwd(),
 				tsconfig: import.meta.dirname + "/tsconfig.json",
 			}),
-			literalsHtmlCssMinifier(),
+			//literalsHtmlCssMinifier(),
 			terser({
 				parse: {},
 				compress: {
