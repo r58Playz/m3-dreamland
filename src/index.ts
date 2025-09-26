@@ -1,7 +1,7 @@
 export { SchemeStyles, genStyle } from "./colors";
 export { DynamicScheme, Variant, Hct, argbFromHex, hexFromArgb, sourceColorFromImage, sourceColorFromImageBytes } from "@ktibow/material-color-utilities-nightly";
 
-export { Button, ButtonVariant } from "./inputs/Button";
+export { Button, ButtonVariant, ButtonIcon } from "./inputs/Button";
 export { ButtonGroup } from "./inputs/ButtonGroup";
 export { Chip, ChipVariant } from "./inputs/Chip";
 export { Slider } from "./inputs/Slider";
