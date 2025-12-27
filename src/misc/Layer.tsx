@@ -117,7 +117,7 @@ HoverLayer.style = css`
 
 		background: var(--m3dl-state-color, currentColor);
 		opacity: 0;
-		transition: opacity var(--m3dl-motion-effects-default);
+		transition: opacity var(--m3dl-spring-effects-default);
 	}
 
 	:global(*):hover:not(:global(:disabled)) > :scope {

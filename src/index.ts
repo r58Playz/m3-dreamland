@@ -12,7 +12,7 @@ export { ToggleButton, ToggleButtonVariant } from "./inputs/ToggleButton";
 export { Card } from "./containers/Card";
 
 export { Icon } from "./misc/Icon";
-export { LinearProgress } from "./misc/LinearProgress";
+export { LinearProgress, LinearProgressIndeterminate } from "./misc/LinearProgress";
 export { LoadingIndicator } from "./misc/LoadingIndicator";
 
 export { ComponentSize } from "./util";

@@ -26,8 +26,7 @@ export let Slider: Component<{
 	this.endStop ??= false;
 	this.disabled ??= false;
 
-	let spring = createSpring(this.value, { stiffness: 0.3, damping: 1 });
-	use(this.value).constrain(spring).listen(x => spring.target = x);
+	let spring = createSpring(use(this.value), { stiffness: 0.3, damping: 1 });
 	let display = use(this.min, this.max, spring.current).map(([min, max, current]) => (current - min) / (max - min));
 
 	let update = (e: InputEvent & { currentTarget: HTMLInputElement }) => {
@@ -137,7 +136,7 @@ Slider.style = css`
 		border-radius: var(--m3dl-shape-full);
 		background: rgb(var(--m3dl-color-primary));
 
-		transition: flex-basis var(--m3dl-motion-effects-fast);
+		transition: flex-basis var(--m3dl-spring-effects-fast);
 	}
 	input:disabled ~ .handle > .handle-inner {
 		background: rgb(var(--m3dl-color-on-surface) / 0.38);
@@ -162,7 +161,7 @@ Slider.style = css`
 		justify-content: center;
 
 		opacity: 0;
-		transition: opacity var(--m3dl-motion-effects-default);
+		transition: opacity var(--m3dl-spring-effects-default);
 	}
 	input:enabled {
 		cursor: pointer;

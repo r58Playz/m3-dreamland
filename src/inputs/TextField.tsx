@@ -110,7 +110,7 @@ TextFieldFilled.style = css`
 		letter-spacing: var(--m3dl-font-body-small-tracking, 0.025rem);
 		font-weight: var(--m3dl-font-body-small-weight, 400);
 
-		transition: var(--m3dl-motion-effects-default);
+		transition: var(--m3dl-spring-effects-default);
 	}
 	.field :is(input, textarea):not(:focus):placeholder-shown ~ label {
 		top: 1rem;
@@ -128,7 +128,7 @@ TextFieldFilled.style = css`
 		width: 100%;
 
 		background: rgb(var(--m3dl-color-on-surface-variant));
-		transition: var(--m3dl-motion-effects-default);
+		transition: var(--m3dl-spring-effects-default);
 	}
 	.field :is(input, textarea):focus ~ .focus {
 		background: rgb(var(--m3dl-color-primary));

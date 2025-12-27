@@ -2,8 +2,6 @@ import { DynamicScheme, MaterialDynamicColors } from "@ktibow/material-color-uti
 import { Component, ComponentChild } from "dreamland/core";
 import { randomUid } from "./util";
 
-let createRules = (ns: string, rules: readonly (readonly [string, string | number])[]) => rules.map(x => `--m3dl-${ns}-${x[0].replace(/_/g, "-")}: ${x[1]};`).join("\n");
-
 let dynamicColors = new MaterialDynamicColors();
 let colors = [
 	"background",
@@ -65,35 +63,55 @@ export let serializeScheme = (scheme: DynamicScheme): SerializedScheme => {
 }
 let argbToString = (argb: number) => `${(argb >> 16) & 255} ${(argb >> 8) & 255} ${argb & 255}`;
 
+let createRules = (ns: string, rules: readonly (readonly [string, string | number])[]) => rules.map(x => `--m3dl-${ns}-${x[0].replace(/_/g, "-")}: ${x[1]};`).join("\n");
+let bezier = (a: number, b: number, c: number, d: number) => `cubic-bezier(${a},${b},${c},${d})`;
+
 let shapes = [["none", 0], ["extra-small", 4], ["small", 8], ["medium", 12], ["large", 16], ["extra-large", 28], ["full", 1e6]] as const;
 
 let FAST = "fast", DEFAULT = "default", SLOW = "slow";
-let bezier = (a: number, b: number, c: number, d: number, duration: number) => `cubic-bezier(${a},${b},${c},${d}) ${duration / 1000}s`;
-let expressiveSpatial = [
-	[FAST, bezier(0.42, 1.67, 0.21, 0.9, 350)],
-	[DEFAULT, bezier(0.38, 1.21, 0.22, 1, 500)],
-	[SLOW, bezier(0.39, 1.29, 0.35, 0.98, 650)]
+let bezierTime = (a: number, b: number, c: number, d: number, duration: number) => `${bezier(a, b, c, d)} ${duration / 1000}s`;
+let springExpressiveSpatial = [
+	[FAST, bezierTime(0.42, 1.67, 0.21, 0.9, 350)],
+	[DEFAULT, bezierTime(0.38, 1.21, 0.22, 1, 500)],
+	[SLOW, bezierTime(0.39, 1.29, 0.35, 0.98, 650)]
 ] as const;
-let expressiveEffects = [
-	[FAST, bezier(0.31, 0.94, 0.34, 1, 150)],
-	[DEFAULT, bezier(0.34, 0.8, 0.34, 1, 200)],
-	[SLOW, bezier(0.34, 0.88, 0.34, 1, 300)]
+let springExpressiveEffects = [
+	[FAST, bezierTime(0.31, 0.94, 0.34, 1, 150)],
+	[DEFAULT, bezierTime(0.34, 0.8, 0.34, 1, 200)],
+	[SLOW, bezierTime(0.34, 0.88, 0.34, 1, 300)]
 ] as const;
 
-let standardSpatial = [
-	[FAST, bezier(0.27, 1.06, 0.18, 1, 350)],
-	[DEFAULT, bezier(0.27, 1.06, 0.18, 1, 500)],
-	[SLOW, bezier(0.27, 1.06, 0.18, 1, 750)],
+let springStandardSpatial = [
+	[FAST, bezierTime(0.27, 1.06, 0.18, 1, 350)],
+	[DEFAULT, bezierTime(0.27, 1.06, 0.18, 1, 500)],
+	[SLOW, bezierTime(0.27, 1.06, 0.18, 1, 750)],
 ] as const;
-let standardEffects = [
-	[FAST, bezier(0.31, 0.94, 0.34, 1, 150)],
-	[DEFAULT, bezier(0.34, 0.8, 0.34, 1, 200)],
-	[SLOW, bezier(0.34, 0.88, 0.34, 1, 300)]
+let springStandardEffects = [
+	[FAST, bezierTime(0.31, 0.94, 0.34, 1, 150)],
+	[DEFAULT, bezierTime(0.34, 0.8, 0.34, 1, 200)],
+	[SLOW, bezierTime(0.34, 0.88, 0.34, 1, 300)]
+] as const;
+
+let EMPTY = "", ACCELERATE = "accelerate", DECELERATE = "decelerate";
+let easingEmphasized = [
+	[EMPTY, bezier(0.2, 0, 0, 1)],
+	[ACCELERATE, bezier(0.3, 0, 0.8, 0.15)],
+	[DECELERATE, bezier(0.05, 0.7, 0.1, 1)]
+] as const;
+let easingStandard = [
+	[EMPTY, bezier(0.2, 0, 0, 1)],
+	[ACCELERATE, bezier(0.3, 0, 1, 1)],
+	[DECELERATE, bezier(0, 0, 0, 1)],
+] as const;
+let easingLegacy = [
+	[EMPTY, bezier(0.4, 0, 0.2, 1)],
+	[ACCELERATE, bezier(0.4, 0, 1, 1)],
+	[DECELERATE, bezier(0, 0, 0.2, 1)],
 ] as const;
 
 export let genStyle = (uid: string, scheme: DynamicScheme | SerializedScheme, motion: "expressive" | "standard"): string => {
-	let spatial = motion === "expressive" ? expressiveSpatial : standardSpatial;
-	let effects = motion === "expressive" ? expressiveEffects : standardEffects;
+	let springSpatial = motion === "expressive" ? springExpressiveSpatial : springStandardSpatial;
+	let springEffects = motion === "expressive" ? springExpressiveEffects : springStandardEffects;
 
 	if (scheme instanceof DynamicScheme) scheme = serializeScheme(scheme);
 
@@ -101,8 +119,12 @@ export let genStyle = (uid: string, scheme: DynamicScheme | SerializedScheme, mo
 		.${uid} {
 			${createRules("color", Object.entries(scheme).map(([x, y]) => [x, argbToString(y)]))}
 			${createRules("shape", shapes.map(([a, b]) => [a, b + "px"]))}
-			${createRules("motion-spatial", spatial)}
-			${createRules("motion-effects", effects)}
+			${createRules("spring-spatial", springSpatial)}
+			${createRules("spring-effects", springEffects)}
+			${createRules("easing-emphasized", easingEmphasized)}
+			${createRules("easing-standard", easingStandard)}
+			${createRules("easing-legacy", easingLegacy)}
+			--m3dl-easing-linear: ${bezier(0, 0, 1, 1)};
 			--m3dl-elevation-0: none;
 			--m3dl-elevation-1:
 				0px 3px 1px -2px rgb(var(--m3dl-color-shadow) / 0.2),

@@ -52,11 +52,11 @@ Button.style = css`
 		align-items: center;
 		justify-content: center;
 
-		transition: border-radius var(--m3dl-motion-spatial-fast),
-			flex var(--m3dl-motion-spatial-fast),
-			color var(--m3dl-motion-effects-default),
-			background var(--m3dl-motion-effects-default),
-			border-color var(--m3dl-motion-effects-default);
+		transition: border-radius var(--m3dl-spring-spatial-fast),
+			flex var(--m3dl-spring-spatial-fast),
+			color var(--m3dl-spring-effects-default),
+			background var(--m3dl-spring-effects-default),
+			border-color var(--m3dl-spring-effects-default);
 
 		cursor: pointer;
 		user-select: none;

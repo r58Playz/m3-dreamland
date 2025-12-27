@@ -42,7 +42,7 @@ Switch.style = css`
 		border-radius: var(--m3dl-shape-full);
 		background: rgb(var(--m3dl-color-surface-container-highest));
 
-		transition: var(--m3dl-motion-effects-default);
+		transition: var(--m3dl-spring-effects-default);
 	}
 	input:checked {
 		background: rgb(var(--m3dl-color-primary));
@@ -74,7 +74,7 @@ Switch.style = css`
 		align-items: center;
 		justify-content: center;
 
-		transition: left var(--m3dl-motion-spatial-fast), background var(--m3dl-motion-effects-default);
+		transition: left var(--m3dl-spring-spatial-fast), background var(--m3dl-spring-effects-default);
 	}
 	input:checked ~ .layer {
 		left: 2.25rem;
@@ -95,11 +95,11 @@ Switch.style = css`
 		align-items: center;
 		justify-content: center;
 
-		transition: var(--m3dl-motion-spatial-fast);
+		transition: var(--m3dl-spring-spatial-fast);
 	}
 	.handle :global(svg) {
 		opacity: 0;
-		transition: var(--m3dl-motion-effects-default);
+		transition: var(--m3dl-spring-effects-default);
 	}
 	input:checked ~ .layer .handle {
 		width: 1.5rem;
