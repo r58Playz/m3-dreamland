@@ -33,9 +33,9 @@ export let Chip: Component<{
 		>
 			<Ripples create={ripple} />
 			<HoverLayer />
-			{use(this.icon).andThen(x => <Icon icon={x} class="leading" />)}
+			{use(this.icon).and(x => <Icon icon={x} class="leading" />)}
 			<span class="m3dl-font-label-large">{cx.children}</span>
-			{use(this.trailing).andThen(x => <Icon icon={x} class="trailing" />)}
+			{use(this.trailing).and(x => <Icon icon={x} class="trailing" />)}
 		</button>
 	)
 }

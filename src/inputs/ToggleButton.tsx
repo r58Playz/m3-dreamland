@@ -21,7 +21,7 @@ export let ToggleButton: Component<{
 		<Button
 			variant={use(this.variant)}
 			size={use(this.size)}
-			shape={use(this.value).andThen("square", "round")}
+			shape={use(this.value).and("square" as const).or("round" as const)}
 			icon={use(this.icon)}
 			title={use(this.title)}
 

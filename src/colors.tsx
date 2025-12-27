@@ -6,10 +6,63 @@ let createRules = (ns: string, rules: readonly (readonly [string, string | numbe
 
 let dynamicColors = new MaterialDynamicColors();
 let colors = [
-	...dynamicColors.allColors,
-	dynamicColors.shadow(),
-	dynamicColors.scrim(),
-];
+	"background",
+	"onBackground",
+	"surface",
+	"surfaceDim",
+	"surfaceBright",
+	"surfaceContainerLowest",
+	"surfaceContainerLow",
+	"surfaceContainer",
+	"surfaceContainerHigh",
+	"surfaceContainerHighest",
+	"onSurface",
+	"onSurfaceVariant",
+	"outline",
+	"outlineVariant",
+	"inverseSurface",
+	"inverseOnSurface",
+	"primary",
+	"primaryDim",
+	"onPrimary",
+	"primaryContainer",
+	"onPrimaryContainer",
+	"primaryFixed",
+	"primaryFixedDim",
+	"onPrimaryFixed",
+	"onPrimaryFixedVariant",
+	"inversePrimary",
+	"secondary",
+	"secondaryDim",
+	"onSecondary",
+	"secondaryContainer",
+	"onSecondaryContainer",
+	"secondaryFixed",
+	"secondaryFixedDim",
+	"onSecondaryFixed",
+	"onSecondaryFixedVariant",
+	"tertiary",
+	"tertiaryDim",
+	"onTertiary",
+	"tertiaryContainer",
+	"onTertiaryContainer",
+	"tertiaryFixed",
+	"tertiaryFixedDim",
+	"onTertiaryFixed",
+	"onTertiaryFixedVariant",
+	"error",
+	"errorDim",
+	"onError",
+	"errorContainer",
+	"onErrorContainer",
+	"shadow",
+	"scrim",
+] as const;
+export type SerializedScheme = { [K in typeof colors[number]]: number };
+
+export let serializeScheme = (scheme: DynamicScheme): SerializedScheme => {
+	return colors.map(x => dynamicColors[x]()).map(x => ({ [x.name]: x.getArgb(scheme) })).reduce((acc, x) => Object.assign(acc, x), {}) as any as SerializedScheme;
+}
 let argbToString = (argb: number) => `${(argb >> 16) & 255} ${(argb >> 8) & 255} ${argb & 255}`;
 
 let shapes = [["none", 0], ["extra-small", 4], ["small", 8], ["medium", 12], ["large", 16], ["extra-large", 28], ["full", 1e6]] as const;
@@ -38,13 +91,15 @@ let standardEffects = [
 	[SLOW, bezier(0.34, 0.88, 0.34, 1, 300)]
 ] as const;
 
-export let genStyle = (uid: string, scheme: DynamicScheme, motion: "expressive" | "standard"): string => {
+export let genStyle = (uid: string, scheme: DynamicScheme | SerializedScheme, motion: "expressive" | "standard"): string => {
 	let spatial = motion === "expressive" ? expressiveSpatial : standardSpatial;
 	let effects = motion === "expressive" ? expressiveEffects : standardEffects;
 
+	if (scheme instanceof DynamicScheme) scheme = serializeScheme(scheme);
+
 	return `
 		.${uid} {
-			${createRules("color", colors.map(x => [x.name, argbToString(x.getArgb(scheme))]))}
+			${createRules("color", Object.entries(scheme).map(([x, y]) => [x, argbToString(y)]))}
 			${createRules("shape", shapes.map(([a, b]) => [a, b + "px"]))}
 			${createRules("motion-spatial", spatial)}
 			${createRules("motion-effects", effects)}
@@ -75,21 +130,16 @@ export let genStyle = (uid: string, scheme: DynamicScheme, motion: "expressive" 
 };
 
 export let SchemeStyles: Component<{
-	scheme: DynamicScheme,
+	scheme: DynamicScheme | SerializedScheme,
 	motion: "expressive" | "standard",
 	children?: ComponentChild
-}, { style: string }> = function(cx) {
+}> = function (cx) {
 	let uid = "m3dl-" + randomUid();
-	let setStyles = () => {
-		this.style = genStyle(uid, this.scheme, this.motion);
-	};
-
-	setStyles();
-	use(this.scheme).listen(setStyles);
+	let styles = use(this.scheme, this.motion).map(([scheme, motion]) => genStyle(uid, scheme, motion));
 
 	return (
 		<div class={`${uid} m3dl-scheme-styles m3dl-font-body-medium`}>
-			<style attr:innerText={use(this.style)} />
+			<style attr:textContent={styles} />
 			{cx.children}
 		</div>
 	)

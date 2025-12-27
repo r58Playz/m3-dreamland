@@ -27,7 +27,7 @@ export let Slider: Component<{
 	this.disabled ??= false;
 
 	let spring = createSpring(this.value, { stiffness: 0.3, damping: 1 });
-	use(this.value).listen(x => spring.target = x);
+	use(this.value).constrain(spring).listen(x => spring.target = x);
 	let display = use(this.min, this.max, spring.current).map(([min, max, current]) => (current - min) / (max - min));
 
 	let update = (e: InputEvent & { currentTarget: HTMLInputElement }) => {
