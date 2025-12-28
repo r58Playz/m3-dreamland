@@ -54,7 +54,7 @@ let argbToString = (argb: number) => `${(argb >> 16) & 255} ${(argb >> 8) & 255}
 let createRules = (ns: string, rules: readonly (readonly [string, string | number])[]) => rules.map(x => `--m3dl-${ns}-${x[0].replace(/_/g, "-")}: ${x[1]};`).join("\n");
 let bezier = (a: number, b: number, c: number, d: number) => `cubic-bezier(${a},${b},${c},${d})`;
 
-let shapes = [["none", 0], ["extra-small", 4], ["small", 8], ["medium", 12], ["large", 16], ["extra-large", 28], ["full", 1e6]] as const;
+let shapes = [["none", 0], ["extra-small", 4], ["small", 8], ["medium", 12], ["large", 16], ["large-increased", 20], ["extra-large", 28], ["full", 1e6]] as const;
 
 let FAST = "fast", DEFAULT = "default", SLOW = "slow";
 let bezierTime = (a: number, b: number, c: number, d: number, duration: number) => `${bezier(a, b, c, d)} ${duration / 1000}s`;
