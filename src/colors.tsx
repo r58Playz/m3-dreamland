@@ -92,19 +92,19 @@ let springStandardEffects = [
 	[SLOW, bezierTime(0.34, 0.88, 0.34, 1, 300)]
 ] as const;
 
-let EMPTY = "", ACCELERATE = "accelerate", DECELERATE = "decelerate";
+let ACCELERATE = "accelerate", DECELERATE = "decelerate";
 let easingEmphasized = [
-	[EMPTY, bezier(0.2, 0, 0, 1)],
+	[DEFAULT, bezier(0.2, 0, 0, 1)],
 	[ACCELERATE, bezier(0.3, 0, 0.8, 0.15)],
 	[DECELERATE, bezier(0.05, 0.7, 0.1, 1)]
 ] as const;
 let easingStandard = [
-	[EMPTY, bezier(0.2, 0, 0, 1)],
+	[DEFAULT, bezier(0.2, 0, 0, 1)],
 	[ACCELERATE, bezier(0.3, 0, 1, 1)],
 	[DECELERATE, bezier(0, 0, 0, 1)],
 ] as const;
 let easingLegacy = [
-	[EMPTY, bezier(0.4, 0, 0.2, 1)],
+	[DEFAULT, bezier(0.4, 0, 0.2, 1)],
 	[ACCELERATE, bezier(0.4, 0, 1, 1)],
 	[DECELERATE, bezier(0, 0, 0.2, 1)],
 ] as const;
