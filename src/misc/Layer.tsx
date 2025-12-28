@@ -85,6 +85,7 @@ export let Ripples: Component<{ create: Delegate<MouseEvent> }, { ripples: DLEle
 		}
 
 		window.addEventListener("pointerup", cancel);
+		window.addEventListener("pointercancel", cancel);
 		window.addEventListener("dragend", cancel);
 	}
 
