@@ -25,29 +25,17 @@ let colors = [
 	"onPrimary",
 	"primaryContainer",
 	"onPrimaryContainer",
-	"primaryFixed",
-	"primaryFixedDim",
-	"onPrimaryFixed",
-	"onPrimaryFixedVariant",
 	"inversePrimary",
 	"secondary",
 	"secondaryDim",
 	"onSecondary",
 	"secondaryContainer",
 	"onSecondaryContainer",
-	"secondaryFixed",
-	"secondaryFixedDim",
-	"onSecondaryFixed",
-	"onSecondaryFixedVariant",
 	"tertiary",
 	"tertiaryDim",
 	"onTertiary",
 	"tertiaryContainer",
 	"onTertiaryContainer",
-	"tertiaryFixed",
-	"tertiaryFixedDim",
-	"onTertiaryFixed",
-	"onTertiaryFixedVariant",
 	"error",
 	"errorDim",
 	"onError",
@@ -109,14 +97,14 @@ let easingLegacy = [
 	[DECELERATE, bezier(0, 0, 0.2, 1)],
 ] as const;
 
-export let genStyle = (uid: string, scheme: DynamicScheme | SerializedScheme, motion: "expressive" | "standard"): string => {
+export let genStyle = (uid: string | undefined, scheme: DynamicScheme | SerializedScheme, motion: "expressive" | "standard"): string => {
 	let springSpatial = motion === "expressive" ? springExpressiveSpatial : springStandardSpatial;
 	let springEffects = motion === "expressive" ? springExpressiveEffects : springStandardEffects;
 
 	if (scheme instanceof DynamicScheme) scheme = serializeScheme(scheme);
 
 	return `
-		.${uid} {
+		${uid ? "." + uid : ":root"} {
 			${createRules("color", Object.entries(scheme).map(([x, y]) => [x, argbToString(y)]))}
 			${createRules("shape", shapes.map(([a, b]) => [a, b + "px"]))}
 			${createRules("spring-spatial", springSpatial)}
@@ -154,13 +142,14 @@ export let genStyle = (uid: string, scheme: DynamicScheme | SerializedScheme, mo
 export let SchemeStyles: Component<{
 	scheme: DynamicScheme | SerializedScheme,
 	motion: "expressive" | "standard",
+	root?: boolean,
 	children?: ComponentChild
 }> = function (cx) {
-	let uid = "m3dl-" + randomUid();
+	let uid = this.root ? undefined : "m3dl-" + randomUid();
 	let styles = use(this.scheme, this.motion).map(([scheme, motion]) => genStyle(uid, scheme, motion));
 
 	return (
-		<div class={`${uid} m3dl-scheme-styles m3dl-font-body-medium`}>
+		<div class={`${uid || ""} m3dl-scheme-styles m3dl-font-body-medium`}>
 			<style attr:textContent={styles} />
 			{cx.children}
 		</div>
