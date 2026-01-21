@@ -1,4 +1,4 @@
-import { Component, ComponentChild, createDelegate, css } from "dreamland/core";
+import { FC, ComponentChild, createDelegate, css } from "dreamland/core";
 import { HoverLayer, Ripples } from "../misc/Layer";
 import { ComponentSize } from "../util";
 
@@ -7,7 +7,7 @@ export type ButtonIcon = "full" | "wide" | "narrow" | "left";
 
 let sizeFontMap = { xs: "label-large", s: "label-large", m: "title-medium", l: "headline-small", xl: "headline-large" };
 
-export let Button: Component<{
+export function Button(this: FC<{
 	variant: ButtonVariant,
 	size?: ComponentSize,
 	shape?: "round" | "square",
@@ -18,7 +18,7 @@ export let Button: Component<{
 
 	"on:click"?: (e: PointerEvent) => void,
 	children?: ComponentChild,
-}> = function(cx) {
+}>) {
 	// TODO xs and s target areas
 	// TODO full/wide/narrow icons
 	this.size ??= "s";
@@ -39,7 +39,7 @@ export let Button: Component<{
 		>
 			<Ripples create={ripple} />
 			<HoverLayer />
-			{cx.children}
+			{this.children}
 		</button>
 	)
 }

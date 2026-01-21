@@ -1,13 +1,13 @@
-import { Component, ComponentChild, css } from "dreamland/core";
+import { FC, ComponentChild, css } from "dreamland/core";
 import { ComponentSize } from "../util";
 
 export type ButtonGroupVariant = "standard" | "connected-square" | "connected-round";
 
-export let ButtonGroup: Component<{
+export function ButtonGroup(this: FC<{
 	variant: ButtonGroupVariant,
 	size?: ComponentSize,
 	children?: ComponentChild,
-}> = function(cx) {
+}>) {
 	this.size ??= "s";
 
 
@@ -15,7 +15,7 @@ export let ButtonGroup: Component<{
 
 	return (
 		<div class={use`m3dl-container m3dl-buttongroup variant-${variant} size-${this.size}`}>
-			{cx.children}
+			{this.children}
 		</div>
 	)
 }

@@ -1,24 +1,24 @@
-import { Component, ComponentChild, createDelegate, css } from "dreamland/core";
+import { FC, ComponentChild, createDelegate, css } from "dreamland/core";
 import { HoverLayer, Ripples } from "../misc/Layer";
 
-export let Card: Component<{
+export function Card(this: FC<{
 	variant: "elevated" | "filled" | "outlined",
 	"on:click"?: (e: PointerEvent) => void,
 	children?: ComponentChild,
-}> = function(cx) {
+}>) {
 	if (this["on:click"]) {
 		let ripple = createDelegate<PointerEvent>();
 		return (
 			<button class={use`m3dl-container m3dl-card variant-${this.variant}`} on:pointerdown={ripple} on:click={this["on:click"]}>
 				<Ripples create={ripple} />
 				<HoverLayer />
-				{cx.children}
+				{this.children}
 			</button>
 		)
 	} else {
 		return (
 			<div class={use`m3dl-container m3dl-card variant-${this.variant}`}>
-				{cx.children}
+				{this.children}
 			</div>
 		)
 	}

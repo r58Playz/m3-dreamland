@@ -1,10 +1,10 @@
 import { IconifyIcon } from "@iconify/types";
-import { Component, ComponentChild, createDelegate, css } from "dreamland/core";
+import { FC, ComponentChild, createDelegate, css } from "dreamland/core";
 import { HoverLayer, Ripples } from "../misc/Layer";
 import { Icon } from "../misc/Icon";
 
 export type ChipVariant = "input" | "assist" | "filter" | "suggestion";
-export let Chip: Component<{
+export function Chip(this: FC<{
 	variant: ChipVariant,
 	icon?: IconifyIcon,
 	trailing?: IconifyIcon,
@@ -15,7 +15,7 @@ export let Chip: Component<{
 
 	"on:click": (e: PointerEvent) => void,
 	children?: ComponentChild
-}> = function(cx) {
+}>) {
 	this.elevated ??= false;
 	this.value ??= false;
 	this.disabled ??= false;
@@ -34,7 +34,7 @@ export let Chip: Component<{
 			<Ripples create={ripple} />
 			<HoverLayer />
 			{use(this.icon).and(x => <Icon icon={x} class="leading" />)}
-			<span class="m3dl-font-label-large">{cx.children}</span>
+			<span class="m3dl-font-label-large">{this.children}</span>
 			{use(this.trailing).and(x => <Icon icon={x} class="trailing" />)}
 		</button>
 	)

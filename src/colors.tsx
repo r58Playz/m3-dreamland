@@ -1,5 +1,5 @@
 import { DynamicScheme, MaterialDynamicColors } from "@ktibow/material-color-utilities-nightly";
-import { Component, ComponentChild } from "dreamland/core";
+import { ComponentChild, FC } from "dreamland/core";
 import { randomUid } from "./util";
 
 let dynamicColors = new MaterialDynamicColors();
@@ -139,19 +139,19 @@ export let genStyle = (uid: string | undefined, scheme: DynamicScheme | Serializ
 	`;
 };
 
-export let SchemeStyles: Component<{
+export function SchemeStyles(this: FC<{
 	scheme: DynamicScheme | SerializedScheme,
 	motion: "expressive" | "standard",
-	root?: boolean,
+	onRoot?: boolean,
 	children?: ComponentChild
-}> = function (cx) {
-	let uid = this.root ? undefined : "m3dl-" + randomUid();
+}>) {
+	let uid = this.onRoot ? undefined : "m3dl-" + randomUid();
 	let styles = use(this.scheme, this.motion).map(([scheme, motion]) => genStyle(uid, scheme, motion));
 
 	return (
 		<div class={`${uid || ""} m3dl-scheme-styles m3dl-font-body-medium`}>
 			<style attr:textContent={styles} />
-			{cx.children}
+			{this.children}
 		</div>
 	)
 }

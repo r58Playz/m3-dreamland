@@ -1,9 +1,9 @@
-import { Component, css } from "dreamland/core";
+import { FC, css } from "dreamland/core";
 
-export let LinearProgress: Component<{
+export function LinearProgress(this: FC<{
 	progress: number,
 	thickness?: number,
-}> = function () {
+}>) {
 	this.thickness ??= 4;
 
 	return (
@@ -44,7 +44,7 @@ LinearProgress.style = css<typeof LinearProgress>`
 	}
 `;
 
-export let LinearProgressIndeterminate: Component<{ thickness?: number }> = function () {
+export function LinearProgressIndeterminate(this: FC<{ thickness?: number }>) {
 	this.thickness ??= 4;
 	return (
 		<div role="progressbar" class="m3dl-container m3dl-linear-progress-indeterminate">

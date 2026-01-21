@@ -1,10 +1,10 @@
-import { Component, css } from "dreamland/core";
+import { FC, css } from "dreamland/core";
 
-export let LoadingIndicator: Component<{
+export function LoadingIndicator(this: FC<{
 	size?: number,
 	container?: boolean,
 	center?: boolean,
-}> = function() {
+}>) {
 	this.size ??= 48;
 	this.container ??= false;
 	this.center ??= false;

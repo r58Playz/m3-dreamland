@@ -1,14 +1,14 @@
-import { Component, css } from "dreamland/core";
+import { FC, css } from "dreamland/core";
 import { Icon } from "../misc/Icon";
 
 import iconCheck from "@ktibow/iconset-material-symbols/check";
 import { IconifyIcon } from "@iconify/types";
 
-export let Switch: Component<{
+export function Switch(this: FC<{
 	value: boolean,
 	icon?: IconifyIcon,
 	disabled?: boolean,
-}> = function() {
+}>) {
 	this.disabled ??= false;
 	this.icon ??= iconCheck;
 

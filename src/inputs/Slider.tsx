@@ -1,9 +1,9 @@
-import { Component, css } from "dreamland/core";
+import { FC, css } from "dreamland/core";
 import { createSpring } from "dreamland/motion";
 import { ComponentSize } from "../util";
 
 // TODO icon
-export let Slider: Component<{
+export function Slider(this: FC<{
 	value: number,
 	min?: number,
 	max?: number,
@@ -16,7 +16,7 @@ export let Slider: Component<{
 	disabled?: boolean,
 }, {
 	stops: number,
-}> = function() {
+}>) {
 	this.min ??= 0;
 	this.max ??= 100;
 	this.step ??= "any";

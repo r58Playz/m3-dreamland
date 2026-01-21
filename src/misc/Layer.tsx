@@ -1,4 +1,4 @@
-import { Component, createDelegate, css, Delegate, DLElement } from "dreamland/core";
+import { FC, createDelegate, css, Delegate, ComponentInstance } from "dreamland/core";
 import { randomUid } from "../util";
 
 let ua = navigator.userAgent;
@@ -6,10 +6,10 @@ let isFirefox = ua.includes("Firefox");
 let isTrulySafari = !ua.includes("Chrome") && ua.includes("Safari");
 let advancedRipplesEnabled = !isTrulySafari && !isFirefox;
 
-let Ripple: Component<{ x: number, y: number, size: number, speed: number, cancel: Delegate<number> }> = function(cx) {
+function Ripple(this: FC<{ x: number, y: number, size: number, speed: number, cancel: Delegate<number> }>) {
 	let id = randomUid();
 
-	cx.mount = () => {
+	this.cx.mount = () => {
 		this.cancel.listen((duration) => {
 			let animate = <animate
 				xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@ let Ripple: Component<{ x: number, y: number, size: number, speed: number, cance
 				calcMode="spline"
 				keySplines="0.4 0, 0.2 1"
 			/> as any as SVGAnimateElement;
-			cx.root.querySelector("circle")!.appendChild(animate);
+			this.root.querySelector("circle")!.appendChild(animate);
 			animate.beginElement();
 		});
 	}
@@ -56,13 +56,13 @@ Ripple.style = css<typeof Ripple>`
 	}
 `;
 
-export let Ripples: Component<{ create: Delegate<MouseEvent> }, { ripples: DLElement<typeof Ripple>[] }> = function(cx) {
+export function Ripples(this: FC<{ create: Delegate<MouseEvent> }, { ripples: ComponentInstance<typeof Ripple>[] }>) {
 	this.ripples = [];
 	let cancels = [];
 
-	cx.mount = () => {
+	this.cx.mount = () => {
 		this.create.listen((e: MouseEvent) => {
-			let rect = cx.root.getBoundingClientRect();
+			let rect = this.root.getBoundingClientRect();
 			let x = e.clientX - rect.left;
 			let y = e.clientY - rect.top;
 			let size = Math.hypot(Math.max(x, rect.width - x), Math.max(y, rect.height - y)) * 2.5;
@@ -70,7 +70,7 @@ export let Ripples: Component<{ create: Delegate<MouseEvent> }, { ripples: DLEle
 
 			let delegate = createDelegate<number>();
 
-			let ripple = <Ripple x={x} y={y} size={size} speed={speed} cancel={delegate} /> as DLElement<typeof Ripple>;
+			let ripple = <Ripple x={x} y={y} size={size} speed={speed} cancel={delegate} /> as ComponentInstance<typeof Ripple>;
 
 			cancels.push(() => {
 				delegate(800);
@@ -104,7 +104,7 @@ Ripples.style = css`
 	:global(*):disabled > :scope { opacity: 0; }
 `;
 
-export let HoverLayer: Component = function() {
+export function HoverLayer(this: FC) {
 	return <div />
 }
 HoverLayer.style = css`

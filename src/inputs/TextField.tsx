@@ -1,11 +1,11 @@
-import { Component, css, jsx } from "dreamland/core";
+import { FC, css, jsx } from "dreamland/core";
 import { randomUid } from "../util";
 import { IconifyIcon } from "@iconify/types";
 import { Icon } from "../misc/Icon";
 import { HoverLayer } from "../misc/Layer";
 
 // TODO trailing
-export let TextFieldFilled: Component<{
+export function TextFieldFilled(this: FC<{
 	value: string,
 	type?: "text" | "password",
 	placeholder?: string,
@@ -18,7 +18,7 @@ export let TextFieldFilled: Component<{
 }, {
 	field: HTMLDivElement,
 	input: HTMLTextAreaElement | HTMLInputElement,
-}> = function(cx) {
+}>) {
 	let id = randomUid();
 
 	this.type ??= "text";
@@ -26,7 +26,7 @@ export let TextFieldFilled: Component<{
 	this.errored ??= false;
 	this.multiline ??= false;
 
-	cx.mount = () => {
+	this.cx.mount = () => {
 		if (this.multiline) {
 			let textarea = this.input as HTMLTextAreaElement;
 			let node = this.field;
@@ -35,14 +35,14 @@ export let TextFieldFilled: Component<{
 				node.style.flexBasis = textarea.scrollHeight + "px";
 			};
 			node.addEventListener("input", update);
-			use(this.value).constrain(node).listen(() => update());
+			use(this.value).listen(() => update());
 		}
 	}
 
 	return (
 		<div class="m3dl-container m3dl-textfield" class:errored={use(this.errored)}>
 			<div class="field m3dl-font-body-large" this={use(this.field)}>
-				{use(this.leading).map(x => x && <Icon class="leading" icon={x} />)}
+				{use(this.leading).and(x => <Icon class="leading" icon={x} />)}
 				{jsx(this.multiline ? "textarea" : "input", {
 					class: "focus-none",
 					value: use(this.value),
@@ -55,7 +55,7 @@ export let TextFieldFilled: Component<{
 				<div class="focus" />
 				<HoverLayer />
 			</div>
-			{use(this.supporting).map(x => typeof x == "string" ? <div class="m3dl-font-body-small supporting">{x}</div> : null)}
+			{use(this.supporting).and(x => typeof x == "string" ? <div class="m3dl-font-body-small supporting">{x}</div> : null)}
 		</div>
 	)
 }

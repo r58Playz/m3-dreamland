@@ -1,12 +1,12 @@
 import type { IconifyIcon } from "@iconify/types";
-import { Component } from "dreamland/core";
+import { FC } from "dreamland/core";
 
-export const Icon: Component<{
+export function Icon(this: FC<{
 	icon: IconifyIcon,
 	width?: string | undefined,
 	height?: string | undefined,
 	class?: string | undefined
-}, {}> = function() {
+}>) {
 	return (
 		<svg
 			width={use(this.width).map(x => x || "1em")}
