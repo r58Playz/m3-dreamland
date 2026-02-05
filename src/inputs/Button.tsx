@@ -79,11 +79,11 @@ Button.style = css`
 		background: rgb(var(--m3dl-color-primary));
 		color: rgb(var(--m3dl-color-on-primary));
 	}
-	:scope:not(:has(:global(.m3dl-toggle:not(.selected)))).variant-filled {
+	:scope.variant-filled {
 		background: rgb(var(--m3dl-color-primary));
 		color: rgb(var(--m3dl-color-on-primary));
 	}
-	:scope:has(:global(.m3dl-toggle)).variant-filled {
+	:scope:has(:global(.m3dl-toggle:not(.selected))).variant-filled {
 		background: rgb(var(--m3dl-color-surface-container));
 		color: rgb(var(--m3dl-color-on-surface-variant));
 	}
