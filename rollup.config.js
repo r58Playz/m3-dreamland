@@ -3,6 +3,7 @@ import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import { defineConfig } from "rollup";
 import { dts } from "rollup-plugin-dts";
+import { cssMinifier } from "dreamland/vite";
 
 export default defineConfig([
 	{
@@ -15,6 +16,7 @@ export default defineConfig([
 				filterRoot: process.cwd(),
 				tsconfig: import.meta.dirname + "/tsconfig.json",
 			}),
+			cssMinifier(),
 			terser({
 				parse: {},
 				compress: {

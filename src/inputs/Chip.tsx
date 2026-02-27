@@ -103,7 +103,7 @@ Chip.style = css`
 	:scope:disabled {
 		cursor: auto;
 		box-shadow: none;
-		border-color: rgb(var(--m3dl-color-on-surface) / 0.12));
+		border-color: rgb(var(--m3dl-color-on-surface) / 0.12);
 		background: rgb(var(--m3dl-color-surface));
 		color: rgb(var(--m3dl-color-on-surface) / 0.38);
 	}

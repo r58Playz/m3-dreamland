@@ -1,5 +1,5 @@
-import { getDomImpl } from "dreamland/core";
+import { domImpl } from "dreamland/core";
 
-export let randomUid = getDomImpl()[4];
+export let randomUid = () => domImpl()[4]((() => {}) as any);
 
 export type ComponentSize = "xs" | "s" | "m" | "l" | "xl";
